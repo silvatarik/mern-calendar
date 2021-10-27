@@ -1,10 +1,12 @@
-import { Button } from '@mui/material'
 import React from 'react'
-import { LoginPage } from './pages/LoginPage'
+import { CalendarModal } from './components/calendar/CalendarModal'
+import { MainRouter } from './routers/MainRouter'
 
 export const Application = () => {
     return (
-        <LoginPage />
-
+        <div className="full_content">
+            <MainRouter />
+            <CalendarModal/>
+        </div>
     )
 }
