@@ -6,7 +6,7 @@
 @import 'react-big-calendar/lib/sass/styles';
 @import 'react-big-calendar/lib/addons/dragAndDrop/styles';
 
-//Globales
+//------------------------------- Globales ------------------------------
 
 body {
     // color: white;
@@ -43,4 +43,7 @@ body {
     margin-top:25px;
 }
 
-
+//Form errors
+.error-input{
+    color: red;
+}
