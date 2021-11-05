@@ -2,7 +2,8 @@ import IAction from '../../interfaces/action'
 import { types } from '../../types/types';
 
 const initialState = {
-    modalOpen: false
+    modalOpen: false,
+    action:''
 }
 
 export const uiReducer = (state = initialState, action: IAction) => {
@@ -10,12 +11,12 @@ export const uiReducer = (state = initialState, action: IAction) => {
     switch (action.type) {
         case types.uiOpenModal:
             return {
-                ...state, modalOpen: true
+                ...state, modalOpen: true,action:action.payload
             }
 
         case types.uiCloseModal:
             return {
-                ...state, modalOpen: false
+                ...state, modalOpen: false,action:''
             }
 
         default:

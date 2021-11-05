@@ -1,41 +1,45 @@
 import React, { useState } from 'react'
-import { NavBar } from '../components/shared/NavBar'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
+
+import { ICalendarEvents, IRootCalendar } from '../interfaces/calendar';
+import { uiOpenModal } from '../redux/actions/ui';
+import IRootState from '../interfaces/rootState';
 import { CalendarEvents } from '../components/calendar/CalendarEvents';
-import { CalendarModal } from '../components/calendar/CalendarModal';
+import { NavBar } from '../components/shared/NavBar'
+import { eventSetActive } from '../redux/actions/events';
 
-//BigClanedar
+
+//BigCalendar
 const localizer = momentLocalizer(moment);
-
-const events = [{
-    title: 'Hoy es el cumpleaños del jefe',
-    start: moment().toDate(),
-    end: moment().add(2, 'hours').toDate(),
-    user: {
-        uid: 124345,
-        name: 'Juan'
-    }
-}];
 
 export const CalendarPage = () => {
 
-    
+    const { events, activeEvent } = useSelector<IRootState, IRootCalendar>(state => state.calendar);
+
+    const dispatch = useDispatch()
 
     const [lastView, setLastView]: any = useState(localStorage.getItem('lastView') || 'month')
 
     const onDoubleClick = (event: any) => {
-        // console.log(event);
-
+        dispatch(uiOpenModal("edit"));
     }
 
-    const onSelectEvent = (event: any) => {
-        console.log(event);
+    const onSelectEvent = (event: ICalendarEvents): void => {
+        // console.log(event);
+        dispatch(eventSetActive(event));
     }
 
     const onViewChange = (event: any) => {
         localStorage.setItem('lastView', event);
         setLastView(event)
+    }
+    const handleClickAdd = () => {
+        dispatch(uiOpenModal("new"));
     }
 
     const eventStyleGetter = (event: any, isSelected: any) => {
@@ -58,7 +62,7 @@ export const CalendarPage = () => {
                     events={events}
                     startAccessor="start"
                     endAccessor="end"
-                    style={{ height: 500 }}
+                    style={{ height: 600 }}
                     eventPropGetter={eventStyleGetter}
                     onDoubleClickEvent={onDoubleClick}
                     onSelectEvent={onSelectEvent}
@@ -67,6 +71,10 @@ export const CalendarPage = () => {
                     view={lastView}
                 />
             </div>
+
+            <Button onClick={handleClickAdd} variant="contained" size="large" color="primary" style={{ position: 'fixed', bottom: 25, right: 25 }}>
+                <ControlPointIcon fontSize="large" />
+            </Button>
         </>
     )
 }
