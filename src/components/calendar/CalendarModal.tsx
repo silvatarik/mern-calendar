@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Divider, FilledInput, FormControl, InputLabel, Modal, TextareaAutosize, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import SaveIcon from '@mui/icons-material/Save';
@@ -36,8 +36,8 @@ export const CalendarModal = (props: ICalendarMProps) => {
     const { modalOpen, action } = useSelector<IRootState, IUI>(state => state.ui)
     const dispatch = useDispatch()
     //Dates
-    const [startDate, setStartDate] = React.useState(new Date());
-    const [endDate, setEndDate] = React.useState();
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState();
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -108,7 +108,7 @@ export const CalendarModal = (props: ICalendarMProps) => {
                             {...register("datetime_init", { required: true })}
                             max={getValues("datetime_end")} /> */}
 
-                        <DatePicker className="datatime" selected={new Date()} {...register("datetime_init", { required: true })} onChange={(date) => {}} />
+                        <DatePicker className="datatime" selected={startDate} {...register("datetime_init", { required: true })} onChange={(date:any) => {setStartDate(date)}} />
                     </div>
                     {errors.datetime_init && <span className="error-input">La fecha de inicio no puede estar vacia</span>}
 
@@ -121,7 +121,7 @@ export const CalendarModal = (props: ICalendarMProps) => {
                             defaultValue={moment().format("YYYY-MM-DD HH:mm:ss")}
                             {...register("datetime_end", { required: true })} /> */}
 
-                        <DatePicker className="datatime" selected={new Date()} {...register("datetime_end", { required: true })} onChange={(date) => { }} />
+                        <DatePicker className="datatime" selected={endDate} {...register("datetime_end", { required: true })} onChange={(date:any) => { setEndDate(date)}} />
 
                     </div>
                     {errors.datetime_end && <span className="error-input">La fecha de fin no puede estar vacia</span>}
