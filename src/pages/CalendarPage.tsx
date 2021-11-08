@@ -3,11 +3,10 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 
 import { ICalendarEvents, IRootCalendar } from '../interfaces/calendar';
-import { uiOpenModal } from '../redux/actions/ui';
+import { uiCloseModal, uiOpenModal } from '../redux/actions/ui';
 import IRootState from '../interfaces/rootState';
 import { CalendarEvents } from '../components/calendar/CalendarEvents';
 import { NavBar } from '../components/shared/NavBar'
@@ -30,7 +29,6 @@ export const CalendarPage = () => {
     }
 
     const onSelectEvent = (event: ICalendarEvents): void => {
-        // console.log(event);
         dispatch(eventSetActive(event));
     }
 
@@ -42,6 +40,10 @@ export const CalendarPage = () => {
         dispatch(uiOpenModal("new"));
     }
 
+    const onSelectSlot = () => {
+        dispatch(uiCloseModal());
+    }
+ 
     const eventStyleGetter = (event: any, isSelected: any) => {
         // style : {
         //     borderRadius: '0px',
@@ -67,6 +69,8 @@ export const CalendarPage = () => {
                     onDoubleClickEvent={onDoubleClick}
                     onSelectEvent={onSelectEvent}
                     components={{ event: CalendarEvents }}
+                    onSelectSlot={onSelectSlot}
+                    selectable={true}
                     onView={onViewChange}
                     view={lastView}
                 />

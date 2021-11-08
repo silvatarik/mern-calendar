@@ -4,6 +4,7 @@ export interface ICalendarEvents {
     title: string,
     start: any,
     end: any,
+    description?:string
     user: {
         uid: string,
         name: string
