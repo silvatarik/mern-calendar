@@ -3,7 +3,8 @@ import { types } from '../../types/types';
 
 const initialState = {
     modalOpen: false,
-    action:''
+    action:'',
+    message:''
 }
 
 export const uiReducer = (state = initialState, action: IAction) => {

@@ -1,24 +1,38 @@
-import { authReducer } from "../redux/reducers/authReducer";
-
 export const types = {
     /*    UI    */
-    uiOpenModal:'[UI] Open Modal',
-    uiCloseModal:'[UI] Close Modal',
+
+    uiOpenModal: '[UI] Open Modal',
+    uiCloseModal: '[UI] Close Modal',
 
     /*    Calendar  */
-    eventSetActive:'[Event] Set Active',
-    eventAddNew:'[Event] Add New',
-    eventActiveClean:'[Event] Clear Active Event',
-    eventEdit:'[Event] Edit Event',
-    eventDelete:'[Event] Delete Event',
+
+    /*    Calendar - Reducer  */
+    eventSetActive: '[Event] Set Active',
+    eventAddNew: '[Event] Add New',
+    eventActiveClean: '[Event] Clear Active Event',
+    eventEdit: '[Event] Edit Event',
+    eventDelete: '[Event] Delete Event',
+
+    /*    Calendar - Saga  */
+
 
     /*    Auth  */
-    authChecking:'[Auth] Checking',
-    authCheckingFinish:'[Auth] Finish Checking',
-    authStarLogin:'[Auth] Star Login',
-    authLogin:'[Auth] Login',
-    authStarRegister:'[Auth] Start register',
-    authStartTokenRenew:'[Auth] Star token renew',
-    authLogout:'[Auth] Logout'
+
+    /*    Auth - Reducer  */
+    authLogin: '[Auth] Login',
+    authLogout: '[Auth] Logout',
+    authUpdate:'[Auth] Update',
+    authProfile:'[Auth] Profile',
+
+    /*    Auth - Saga  */
+    authStarLogin: '[Auth] Star Login',
+    authStarRegister: '[Auth] Start register',
+    authStartTokenRenew: '[Auth] Star token renew',
+
+   
+    
+    
+    
+    
 
 }

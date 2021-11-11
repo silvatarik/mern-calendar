@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { useForm } from "react-hook-form";
@@ -9,6 +8,8 @@ import {
 import { Link } from 'react-router-dom';
 
 import { showErrorPermanent, showSuccess } from '../components/modals/sweetAlertModals';
+import { useDispatch } from "react-redux";
+import { loginAction } from "../redux/actions/auth";
 
 type FormData = {
   email: string;
@@ -16,11 +17,13 @@ type FormData = {
 };
 
 export const LoginPage = () => {
+  const dispatch = useDispatch(); 
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit,formState: { errors } } = useForm<FormData>();
   const onSubmit = (data: any) => {
-    console.log(data);
+    
     showSuccess('Login Successful. Redirecting...');
+    dispatch(loginAction(data.email,data.password))
   };
 
   return (
