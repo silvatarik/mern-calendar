@@ -1,47 +1,56 @@
-import React from "react";
+import { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import { useForm } from "react-hook-form";
 import {
   TextField,
-  Button,
+  Button
 } from "@mui/material";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
+import { showErrorPermanent, showSuccess } from '../components/modals/sweetAlertModals';
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 export const LoginPage = () => {
-  const [name, setName] = React.useState("Composed TextField");
 
-  const handleChange = (event: any) => {
-    setName(event.target.value);
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
+  const onSubmit = (data: any) => {
+    console.log(data);
+    showSuccess('Login Successful. Redirecting...');
   };
 
   return (
-      <div className="container align-center">
-        <Container maxWidth="lg">
-          <Typography variant="h3" color="initial">
-            LOGIN
-          </Typography>
-          <div className="container_login bg-white align-center">
-            <form action="">
-              <TextField fullWidth label="Email" id="email" type="email" onChange={handleChange} autoComplete='off'/>
-              <div className="mt-30">
-                <TextField fullWidth label="Password" id="password" type="password" onChange={handleChange}/>
-              </div>
+    <div className="container align-center">
 
-              <span className="links">
-                <Link to="/auth/register" className="linksCustom">
-                  You dont have an account?
-                </Link>
-              </span>
+      <Container maxWidth="lg">
+        <Typography variant="h3" color="initial">
+          LOGIN
+        </Typography>
+        <div className="container_login bg-white align-center">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField error={errors.email && true} fullWidth label="Email" type="email" {...register("email", { required: true })} autoComplete='off' />
+            <div className="mt-30">
+              <TextField error={errors.password && true} fullWidth label="Password" {...register("password", { required: true })} type="password" />
+            </div>
+            <span className="links">
+              <Link to="/auth/register" className="linksCustom">
+                You dont have an account?
+              </Link>
+            </span>
 
-              <div className="button_login">
-                <Button variant="contained" color="primary" size="large" fullWidth>
-                  LOGIN
-                </Button>
-              </div>
-            </form>
-          </div>
-        </Container>
-      </div>
+            <div className="button_login">
+              <Button type="submit" variant="contained" color="primary" size="large" fullWidth>
+                LOGIN
+              </Button>
+            </div>
+            {(errors.email || errors.email) && showErrorPermanent("Email or Password are wrong")}
+          </form>
+        </div>
+      </Container>
+    </div>
   );
 };
